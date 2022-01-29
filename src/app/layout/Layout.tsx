@@ -5,7 +5,7 @@ import Navbar from "./Navbar";
 
 const Layout: React.FC = ({children}) => {
   return (
-    <Flex direction="column">
+    <Flex backgroundColor="gray.100" direction="column" flex={1}>
       <Navbar />
       <Center paddingY={6}>
         <Container maxWidth="6xl">{children}</Container>
