@@ -4,6 +4,7 @@ import {ChakraProvider} from "@chakra-ui/react";
 
 import Layout from "~/app/layout";
 import {Provider as UserProvider} from "~/user/context";
+import Home from "~/app/pages/Home";
 
 /*import App from "./App";*/
 import theme from "./theme";
@@ -15,7 +16,7 @@ ReactDOM.render(
     <ChakraProvider theme={theme}>
       <UserProvider>
         <Layout>
-          <span>todo ok</span>
+          <Home />
         </Layout>
       </UserProvider>
     </ChakraProvider>
