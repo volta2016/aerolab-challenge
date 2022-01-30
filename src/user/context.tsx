@@ -4,7 +4,7 @@ import {CircularProgress, Center} from "@chakra-ui/react";
 import {User} from "./types";
 import api from "./api";
 
-interface Context {
+export interface Context {
   state: {
     user: User;
   };
@@ -17,7 +17,7 @@ const UserContext = React.createContext({} as Context);
 
 const UserProvider: React.FC = ({children}) => {
   const [user, setUser] = React.useState<User>();
-  const [status, setStatus] = React.useState<"pending" | "resolve" | "rejected">("pending");
+  const [status, setStatus] = React.useState<"pending" | "resolved" | "rejected">("pending");
 
   async function handleAddPoints(amount: number) {
     // important before
@@ -26,9 +26,16 @@ const UserProvider: React.FC = ({children}) => {
     return api.points.add(amount).then(() => setUser({...user, points: user.points + amount}));
   }
 
+  React.useEffect(() => {
+    api.fetch().then((user) => {
+      setUser(user);
+      setStatus("resolved");
+    });
+  }, []);
+
   if (!user || status === "pending") {
     return (
-      <Center>
+      <Center padding={12}>
         <CircularProgress isIndeterminate color="primary.500" />
       </Center>
     );
